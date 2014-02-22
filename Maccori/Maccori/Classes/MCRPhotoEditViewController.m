@@ -292,10 +292,6 @@ MCRPhotoAspect photoAspectFromSize(CGSize aspectRatio)
     }
 }
 
-/*
- * The square overlay mask image to be displayed on top of the photo as cropping guideline.
- * Created with PaintCode. The source file is available inside of Resource folder.
- */
 - (UIImage *)squareOverlayMask
 {
     // Constants
@@ -341,10 +337,6 @@ MCRPhotoAspect photoAspectFromSize(CGSize aspectRatio)
     return _maskedImage;
 }
 
-/*
- * The circular overlay mask image to be displayed on top of the photo as cropping guideline.
- * Created with PaintCode. The source file is available inside of Resource folder.
- */
 - (UIImage *)circularOverlayMask
 {
     // Constants
@@ -414,9 +406,9 @@ MCRPhotoAspect photoAspectFromSize(CGSize aspectRatio)
         
         UIGraphicsBeginImageContextWithOptions(circulatRect.size, NO, 0.0);{
             
-//            UIBezierPath *maskPath = [UIBezierPath bezierPathWithOvalInRect:circulatRect];
-//            [maskPath addClip];
-            
+            UIBezierPath *maskPath = [UIBezierPath bezierPathWithOvalInRect:circulatRect];
+            [maskPath addClip];
+
             CGContextRef context = UIGraphicsGetCurrentContext();
             CGContextTranslateCTM(context, -kInnerEdgeInset, -kInnerEdgeInset);
             CGContextScaleCTM(context, scale, scale);
@@ -424,9 +416,9 @@ MCRPhotoAspect photoAspectFromSize(CGSize aspectRatio)
             // Draw the image
             [_image drawInRect:circulatRect];
             
-//            CGPathRef path = [maskPath CGPath];
-//            CGContextAddPath(context, path);
-            
+            CGPathRef path = [maskPath CGPath];
+            CGContextAddPath(context, path);
+
             _image = UIGraphicsGetImageFromCurrentImageContext();
             UIGraphicsEndImageContext();
         }

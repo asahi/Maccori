@@ -66,10 +66,7 @@ UICollectionViewDelegateFlowLayout, UITableViewDataSource, UITableViewDelegate>
     _columnCount = 4;
 
     _segmentedControlTitles = NSArrayFromServices(self.navigationController.supportedServices);
-    NSAssert((_segmentedControlTitles.count < 4), @"MCRPhotoPickerController doesn't support more than 4 photo service providers");
-
     _selectedService = DZNFirstPhotoServiceFromPhotoServices(self.navigationController.supportedServices);
-    NSAssert((_selectedService > 0), @"MCRPhotoPickerController requieres at least 1 supported photo service provider");
 
     self.view.backgroundColor = [UIColor whiteColor];
 
@@ -120,22 +117,6 @@ UICollectionViewDelegateFlowLayout, UITableViewDataSource, UITableViewDelegate>
     }
 }
 
-- (void)viewDidAppear:(BOOL)animated
-{
-    [super viewDidAppear:animated];
-}
-
-- (void)viewWillDisappear:(BOOL)animated
-{
-	[super viewWillDisappear:animated];
-}
-
-- (void)viewDidDisappear:(BOOL)animated
-{
-	[super viewDidDisappear:animated];
-}
-
-
 #pragma mark - Getter methods
 
 + (UICollectionViewFlowLayout *)flowLayout
@@ -183,7 +164,7 @@ UICollectionViewDelegateFlowLayout, UITableViewDataSource, UITableViewDelegate>
         [_loadButton setTitleColor:[UIColor clearColor] forState:UIControlStateNormal];
         [_loadButton addTarget:self action:@selector(downloadData) forControlEvents:UIControlEventTouchUpInside];
         [_loadButton.titleLabel setFont:[UIFont systemFontOfSize:17.0]];
-        [_loadButton setBackgroundColor:self.collectionView.backgroundView.backgroundColor];
+        [_loadButton setBackgroundColor:[UIColor redColor]];
 
         [_loadButton addSubview:self.activityIndicator];
     }
