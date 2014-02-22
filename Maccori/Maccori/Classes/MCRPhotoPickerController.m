@@ -9,6 +9,7 @@
 #import "MCRPhotoPickerController.h"
 #import "MCRPhotoDisplayViewController.h"
 #import "MCRPhotoServiceFactory.h"
+#import "AFPhotoEditorController.h"
 
 #import <MobileCoreServices/UTCoreTypes.h>
 

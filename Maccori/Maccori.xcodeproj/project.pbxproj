@@ -11,6 +11,10 @@
 		4F570141180E5D0E00E12444 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F570140180E5D0E00E12444 /* Foundation.framework */; };
 		4F570143180E5D0E00E12444 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F570142180E5D0E00E12444 /* CoreGraphics.framework */; };
 		4F570145180E5D0E00E12444 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F570144180E5D0E00E12444 /* UIKit.framework */; };
+		8197E23018B8582700208F06 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8197E22F18B8582700208F06 /* Accelerate.framework */; };
+		8197E23218B8583600208F06 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8197E23118B8583600208F06 /* AdSupport.framework */; };
+		8197E23418B8584000208F06 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8197E23318B8584000208F06 /* CoreData.framework */; };
+		8197E23618B8584900208F06 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8197E23518B8584900208F06 /* CoreText.framework */; };
 		DA35033018B725E600999AFC /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = DA35032F18B725E600999AFC /* AppDelegate.m */; };
 		DA35033318B725EF00999AFC /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DA35033218B725EF00999AFC /* RootViewController.m */; };
 		DA35034518B7264D00999AFC /* MCRPhotoDisplayViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = DA35033618B7264D00999AFC /* MCRPhotoDisplayViewCell.m */; };
@@ -36,6 +40,10 @@
 		4F570144180E5D0E00E12444 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		4F570162180E5D0E00E12444 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		4F97B28F18B066E500DED8C0 /* libcommonCrypto.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libcommonCrypto.dylib; path = usr/lib/system/libcommonCrypto.dylib; sourceTree = SDKROOT; };
+		8197E22F18B8582700208F06 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
+		8197E23118B8583600208F06 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
+		8197E23318B8584000208F06 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		8197E23518B8584900208F06 /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
 		81CB7D6B303A4384A940032C /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		880742B9C52B4EC59B669AE3 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = SOURCE_ROOT; };
 		DA35032E18B725E600999AFC /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = Maccori/AppDelegate.h; sourceTree = "<group>"; };
@@ -78,6 +86,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8197E23618B8584900208F06 /* CoreText.framework in Frameworks */,
+				8197E23418B8584000208F06 /* CoreData.framework in Frameworks */,
+				8197E23218B8583600208F06 /* AdSupport.framework in Frameworks */,
+				8197E23018B8582700208F06 /* Accelerate.framework in Frameworks */,
 				4F570143180E5D0E00E12444 /* CoreGraphics.framework in Frameworks */,
 				4F570145180E5D0E00E12444 /* UIKit.framework in Frameworks */,
 				4F570141180E5D0E00E12444 /* Foundation.framework in Frameworks */,
@@ -115,6 +127,10 @@
 		4F57013F180E5D0E00E12444 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				8197E23518B8584900208F06 /* CoreText.framework */,
+				8197E23318B8584000208F06 /* CoreData.framework */,
+				8197E23118B8583600208F06 /* AdSupport.framework */,
+				8197E22F18B8582700208F06 /* Accelerate.framework */,
 				4F97B28F18B066E500DED8C0 /* libcommonCrypto.dylib */,
 				4F570140180E5D0E00E12444 /* Foundation.framework */,
 				4F570142180E5D0E00E12444 /* CoreGraphics.framework */,

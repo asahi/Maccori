@@ -32,5 +32,7 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+	<key>Aviary-API-Key</key>
+	<string>d40a6d7b1c8dea78</string>
 </dict>
 </plist>
