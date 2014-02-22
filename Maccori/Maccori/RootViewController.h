@@ -14,6 +14,7 @@
                                                 UIImagePickerControllerDelegate, MCRPhotoPickerControllerDelegate,
                                                 UIPopoverControllerDelegate>
 
+@property (nonatomic, weak) IBOutlet UIImageView *faceView;
 @property (nonatomic, weak) IBOutlet UIImageView *imageView;
 @property (nonatomic, weak) IBOutlet UIButton *button;
 
