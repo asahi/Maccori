@@ -11,3 +11,6 @@
 
 #define kFlickrConsumerKey              @"8c96746e0818c4ceb119c13c1eb1b05e"
 #define kFlickrConsumerSecret           @"f35bf89a60e411a5"
+
+#define kShutterStockAPIUserName        @"asahijung"
+#define kShutterStockAPIKey             @"43fcbd072b9b3caa9b79d43642bfe089a0bb5a52"

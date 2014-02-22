@@ -148,7 +148,6 @@
 				DA35035918B7267800999AFC /* Maccori-Info.plist */,
 				DA35035A18B7267800999AFC /* Maccori-Prefix.pch */,
 				DA35035B18B7267800999AFC /* main.m */,
-				DA35035C18B7267800999AFC /* Private.h */,
 				880742B9C52B4EC59B669AE3 /* Pods.xcconfig */,
 			);
 			name = "Supporting Files";
@@ -182,6 +181,7 @@
 		DA35034D18B7266200999AFC /* SponsorsAPI */ = {
 			isa = PBXGroup;
 			children = (
+				DA35035C18B7267800999AFC /* Private.h */,
 				DA35034E18B7266200999AFC /* MCRPhotoServiceClient.h */,
 				DA35034F18B7266200999AFC /* MCRPhotoServiceClient.m */,
 				DA35035018B7266200999AFC /* MCRPhotoServiceClientProtocol.h */,

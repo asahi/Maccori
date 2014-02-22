@@ -9,6 +9,7 @@
 #import "MCRPhotoServiceConstants.h"
 #import "MCRPhotoMetadata.h"
 #import "MCRPhotoTag.h"
+#import "Private.h"
 
 NSString *const MCRPhotoServiceClientConsumerKey = @"MCRPhotoServiceClientConsumerKey";
 NSString *const MCRPhotoServiceClientConsumerSecret = @"MCRPhotoServiceClientConsumerSecret";
@@ -25,6 +26,7 @@ NSURL *baseURLForService(MCRPhotoPickerControllerService service)
 {
     switch (service) {
         case MCRPhotoPickerControllerService500px:              return [NSURL URLWithString:@"https://api.500px.com/v1"];
+        case MCRPhotoPickerControllerServiceShutterstock:       return [NSURL URLWithString:[NSString stringWithFormat:@"http://%@:%@@api.shutterstock.com/", kShutterStockAPIUserName, kShutterStockAPIKey]];
         case MCRPhotoPickerControllerServiceFlickr:             return [NSURL URLWithString:@"http://api.flickr.com/services/rest/"];
         default:                                                return nil;
     }
@@ -34,6 +36,7 @@ NSString *tagsResourceKeyPathForService(MCRPhotoPickerControllerService service)
 {
     switch (service) {
         case MCRPhotoPickerControllerService500px:
+        case MCRPhotoPickerControllerServiceShutterstock:
         case MCRPhotoPickerControllerServiceFlickr:
             return @"tags.tag";
         default:
@@ -53,6 +56,7 @@ NSString *photosResourceKeyPathForService(MCRPhotoPickerControllerService servic
 {
     switch (service) {
         case MCRPhotoPickerControllerService500px:              return @"photos";
+        case MCRPhotoPickerControllerServiceShutterstock:       return @"results";
         case MCRPhotoPickerControllerServiceFlickr:             return @"photos.photo";
         default:                                                return nil;
     }
@@ -62,6 +66,7 @@ NSString *photoSearchUrlPathForService(MCRPhotoPickerControllerService service)
 {
     switch (service) {
         case MCRPhotoPickerControllerService500px:              return @"photos/search";
+        case MCRPhotoPickerControllerServiceShutterstock:       return @"images/search.json";
         case MCRPhotoPickerControllerServiceFlickr:             return @"flickr.photos.search";
         default:                                                return nil;
     }
@@ -80,6 +85,7 @@ NSString *keyForSearchTerm(MCRPhotoPickerControllerService service)
 {
     switch (service) {
         case MCRPhotoPickerControllerService500px:              return @"term";
+        case MCRPhotoPickerControllerServiceShutterstock:       return @"searchterm";
         case MCRPhotoPickerControllerServiceFlickr:             return @"text";
         default:                                                return nil;
     }
@@ -89,6 +95,7 @@ NSString *keyForSearchTag(MCRPhotoPickerControllerService service)
 {
     switch (service) {
         case MCRPhotoPickerControllerService500px:
+        case MCRPhotoPickerControllerServiceShutterstock:
         case MCRPhotoPickerControllerServiceFlickr:             return @"tag";
         default:                                                return nil;
     }
@@ -98,6 +105,7 @@ NSString *keyForSearchResultPerPage(MCRPhotoPickerControllerService service)
 {
     switch (service) {
         case MCRPhotoPickerControllerService500px:              return @"rpp";
+        case MCRPhotoPickerControllerServiceShutterstock:       return @"page_size";
         case MCRPhotoPickerControllerServiceFlickr:             return @"per_page";
         default:                                                return nil;
     }

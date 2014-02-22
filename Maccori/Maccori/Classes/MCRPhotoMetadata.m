@@ -44,6 +44,16 @@
             metadata.thumbURL = [NSURL URLWithString:[[[object objectForKey:@"images"] objectAtIndex:0] objectForKey:@"url"]];
             metadata.sourceURL = [NSURL URLWithString:[[[object objectForKey:@"images"] objectAtIndex:1] objectForKey:@"url"]];
         }
+        else if ((service & MCRPhotoPickerControllerServiceShutterstock) > 0)
+        {
+            metadata.id = [object objectForKey:@"photo_id"];
+            metadata.authorName = nil;
+            metadata.authorUsername = nil;
+            metadata.authorProfileURL = nil;
+            metadata.detailURL = [NSURL URLWithString:[object objectForKey:@"web_url"]];
+            metadata.thumbURL = [NSURL URLWithString:[[object objectForKey:@"thumb_large"] objectForKey:@"url"]];
+            metadata.sourceURL = [NSURL URLWithString:[[object objectForKey:@"preview"] objectForKey:@"url"]];
+        }
         else if ((service & MCRPhotoPickerControllerServiceFlickr) > 0)
         {
             metadata.id = [object objectForKey:@"id"];

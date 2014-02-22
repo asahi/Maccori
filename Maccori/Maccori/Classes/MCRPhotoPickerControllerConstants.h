@@ -15,7 +15,8 @@ UIKIT_EXTERN NSString *const MCRPhotoPickerDidFinishPickingNotification; // Noti
 
 typedef NS_OPTIONS(NSUInteger, MCRPhotoPickerControllerService) {
     MCRPhotoPickerControllerService500px = (1 << 0),            // 500px
-    MCRPhotoPickerControllerServiceFlickr = (1 << 1),           // Flickr
+    MCRPhotoPickerControllerServiceShutterstock = (1 << 1),     // Shutterstock
+    MCRPhotoPickerControllerServiceFlickr = (1 << 2)            // Flickr
 };
 
 typedef NS_ENUM(NSInteger, MCRPhotoEditViewControllerCropMode) {

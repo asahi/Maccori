@@ -25,7 +25,7 @@
     self = [super init];
     if (self) {
         _allowsEditing = NO;
-        _supportedServices = MCRPhotoPickerControllerService500px | MCRPhotoPickerControllerServiceFlickr;
+        _supportedServices = MCRPhotoPickerControllerService500px | MCRPhotoPickerControllerServiceShutterstock | MCRPhotoPickerControllerServiceFlickr;
     }
     return self;
 }

@@ -22,6 +22,8 @@ NSString *NSStringFromService(MCRPhotoPickerControllerService service)
     switch (service) {
         case MCRPhotoPickerControllerService500px:
             return @"500px";
+        case MCRPhotoPickerControllerServiceShutterstock:
+            return @"Shutterstock";
         case MCRPhotoPickerControllerServiceFlickr:
             return @"Flickr";
         default:
@@ -33,6 +35,8 @@ MCRPhotoPickerControllerService MCRPhotoServiceFromName(NSString *name)
 {
     if ([name isEqualToString:NSStringFromService(MCRPhotoPickerControllerService500px)])
         return MCRPhotoPickerControllerService500px;
+    if ([name isEqualToString:NSStringFromService(MCRPhotoPickerControllerServiceShutterstock)])
+        return MCRPhotoPickerControllerServiceShutterstock;
     if ([name isEqualToString:NSStringFromService(MCRPhotoPickerControllerServiceFlickr)])
         return MCRPhotoPickerControllerServiceFlickr;
     return -1;
@@ -42,6 +46,9 @@ MCRPhotoPickerControllerService DZNFirstPhotoServiceFromPhotoServices(MCRPhotoPi
 {
     if ((services & MCRPhotoPickerControllerService500px) > 0) {
         return MCRPhotoPickerControllerService500px;
+    }
+    if ((services & MCRPhotoPickerControllerServiceShutterstock) > 0) {
+        return MCRPhotoPickerControllerServiceShutterstock;
     }
     if ((services & MCRPhotoPickerControllerServiceFlickr) > 0) {
         return MCRPhotoPickerControllerServiceFlickr;
@@ -55,6 +62,9 @@ NSArray *NSArrayFromServices(MCRPhotoPickerControllerService services)
     
     if ((services & MCRPhotoPickerControllerService500px) > 0) {
         [titles addObject:NSStringFromService(MCRPhotoPickerControllerService500px)];
+    }
+    if ((services & MCRPhotoPickerControllerServiceShutterstock) > 0) {
+        [titles addObject:NSStringFromService(MCRPhotoPickerControllerServiceShutterstock)];
     }
     if ((services & MCRPhotoPickerControllerServiceFlickr) > 0) {
         [titles addObject:NSStringFromService(MCRPhotoPickerControllerServiceFlickr)];

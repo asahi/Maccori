@@ -30,6 +30,10 @@ static NSString *FACEPHOTO = @"facephoto";
                                   consumerKey:k500pxConsumerKey
                                consumerSecret:k500pxConsumerSecret];
 
+    [MCRPhotoPickerController registerService:MCRPhotoPickerControllerServiceShutterstock
+                                  consumerKey:kShutterStockAPIKey
+                               consumerSecret:kShutterStockAPIUserName];
+
     [MCRPhotoPickerController registerService:MCRPhotoPickerControllerServiceFlickr
                                   consumerKey:kFlickrConsumerKey
                                consumerSecret:kFlickrConsumerSecret];
@@ -111,7 +115,7 @@ static NSString *FACEPHOTO = @"facephoto";
 - (void)presentPhotoPicker
 {
     MCRPhotoPickerController *picker = [[MCRPhotoPickerController alloc] init];
-    picker.supportedServices = MCRPhotoPickerControllerService500px | MCRPhotoPickerControllerServiceFlickr;
+    picker.supportedServices = MCRPhotoPickerControllerService500px | MCRPhotoPickerControllerServiceShutterstock | MCRPhotoPickerControllerServiceFlickr;
     picker.allowsEditing = YES;
     picker.editingMode = MCRPhotoEditViewControllerCropModeNone;
     picker.delegate = self;

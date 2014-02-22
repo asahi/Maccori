@@ -1,3 +1,4 @@
+
 //
 //  MCRPhotoServiceClient.m
 //  MCRPhotoPickerController
@@ -74,13 +75,18 @@
     NSAssert([self consumerSecret], @"\"consumerSecret\" cannot be nil for %@", NSStringFromService(_service));
 
     NSMutableDictionary *params = [NSMutableDictionary new];
-    [params setObject:[self consumerKey] forKey:keyForAPIConsumerKey(_service)];
     [params setObject:keyword forKey:keyForSearchTerm(_service)];
     [params setObject:@(resultPerPage) forKey:keyForSearchResultPerPage(_service)];
 
     if (_service == MCRPhotoPickerControllerService500px || _service == MCRPhotoPickerControllerServiceFlickr) {
+        [params setObject:[self consumerKey] forKey:keyForAPIConsumerKey(_service)];
         [params setObject:@(page) forKey:@"page"];
     }
+    else if (_service == MCRPhotoPickerControllerServiceShutterstock)
+    {
+        [params setObject:@(page) forKey:@"page_number"];
+    }
+
     if (_service == MCRPhotoPickerControllerService500px)
     {
         [params setObject:@[@(2),@(4)] forKey:@"image_size"];
@@ -99,9 +105,15 @@
 
 - (NSData *)processData:(NSData *)data
 {
-    if (_service == MCRPhotoPickerControllerServiceFlickr) {
+    NSData *convertedData = data;
+    NSString *string = nil;
+    if (_service == MCRPhotoPickerControllerServiceShutterstock) {
+        string = [[NSString alloc] initWithData:convertedData encoding:NSUTF8StringEncoding];
+        return  [string dataUsingEncoding:NSUTF8StringEncoding];
+    }
+    else if (_service == MCRPhotoPickerControllerServiceFlickr) {
         
-        NSString *string = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+        NSString *string = [[NSString alloc] initWithData:convertedData encoding:NSUTF8StringEncoding];
         NSString *responsePrefix = @"jsonFlickrApi(";
         
         if ([string rangeOfString:responsePrefix].location != NSNotFound) {
@@ -110,7 +122,7 @@
         }
     }
     
-    return data;
+    return convertedData;
 }
 
 - (NSArray *)objectListForObject:(NSString *)objectName withJSON:(NSDictionary *)json
@@ -124,7 +136,6 @@
             NSString *keyword = [json valueForKeyPath:@"tags.source"];
             if (keyword) [objects insertObject:@{keyForSearchTagContent(_service):keyword} atIndex:0];
         }
-        
         return [MCRPhotoTag photoTagListFromService:_service withResponse:objects];
     }
     else if ([objectName isEqualToString:[MCRPhotoMetadata name]]) {
