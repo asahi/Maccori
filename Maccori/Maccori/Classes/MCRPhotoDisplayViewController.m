@@ -66,7 +66,7 @@ UICollectionViewDelegateFlowLayout, UITableViewDataSource, UITableViewDelegate>
     _columnCount = 4;
 
     _segmentedControlTitles = NSArrayFromServices(self.navigationController.supportedServices);
-    _selectedService = DZNFirstPhotoServiceFromPhotoServices(self.navigationController.supportedServices);
+    _selectedService = MCRFirstPhotoServiceFromPhotoServices(self.navigationController.supportedServices);
 
     self.view.backgroundColor = [UIColor whiteColor];
 

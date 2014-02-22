@@ -16,7 +16,8 @@ UIKIT_EXTERN NSString *const MCRPhotoPickerDidFinishPickingNotification; // Noti
 typedef NS_OPTIONS(NSUInteger, MCRPhotoPickerControllerService) {
     MCRPhotoPickerControllerService500px = (1 << 0),            // 500px
     MCRPhotoPickerControllerServiceShutterstock = (1 << 1),     // Shutterstock
-    MCRPhotoPickerControllerServiceFlickr = (1 << 2)            // Flickr
+    MCRPhotoPickerControllerServiceFlickr = (1 << 2) ,           // Flickr
+    MCRPhotoPickerControllerServiceFlashFoto  = (1 << 3)         // FlashFoto
 };
 
 typedef NS_ENUM(NSInteger, MCRPhotoEditViewControllerCropMode) {
@@ -28,6 +29,6 @@ typedef NS_ENUM(NSInteger, MCRPhotoEditViewControllerCropMode) {
 UIKIT_EXTERN NSString *NSStringFromService(MCRPhotoPickerControllerService service);
 UIKIT_EXTERN NSArray *NSArrayFromServices(MCRPhotoPickerControllerService services);
 UIKIT_EXTERN MCRPhotoPickerControllerService MCRPhotoServiceFromName(NSString *name);
-UIKIT_EXTERN MCRPhotoPickerControllerService DZNFirstPhotoServiceFromPhotoServices(MCRPhotoPickerControllerService services);
+UIKIT_EXTERN MCRPhotoPickerControllerService MCRFirstPhotoServiceFromPhotoServices(MCRPhotoPickerControllerService services);
 UIKIT_EXTERN NSString *NSStringFromCropMode(MCRPhotoEditViewControllerCropMode mode);
 

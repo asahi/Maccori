@@ -7,17 +7,22 @@
 		<key>Pods-AFNetworking.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
+			<integer>2</integer>
+		</dict>
+		<key>Pods-AviarySDK.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
 			<integer>4</integer>
 		</dict>
 		<key>Pods-SDWebImage.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>5</integer>
+			<integer>3</integer>
 		</dict>
 		<key>Pods.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>3</integer>
+			<integer>1</integer>
 		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
@@ -37,12 +42,47 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>0E5FB8316F714F3AABFBA343</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>1D4B0D439D7C4E52B7FF20CC</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
 		<key>1D8E305195DB41108FEBD2DE</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>2182C9C31C074C1E9DEEB83E</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>24F1F1317C2C44ED9B1AC887</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>37D8504FBC7C457AA0B0BC20</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>44D52CFDBE4C473E9952A331</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>4E46DB69A8A74426B855786C</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>55151E1CF7F44F9EBDD63FBE</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -57,12 +97,57 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>6D82326F90D34EB28ED71BB3</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>71A9283751414D55A68C0F10</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>9DBA483E3E2549A3924E0BEF</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>AF775B20BCF642C59BFC796F</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>AF9CFF76490644018988E78F</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>C197E10FDBD34F3EB5E6047B</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>DA559093B51B4308BD2F2EBC</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>DEC841376ED24AE3B4F85A12</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>EEF9E98A6F8740BE8075B8A8</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>FBF2AAE8D1684887BA2E71BC</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>FD56E9B11D8243F3BEF12378</key>
 		<dict>
 			<key>primary</key>
 			<true/>

@@ -14,3 +14,6 @@
 
 #define kShutterStockAPIUserName        @"asahijung"
 #define kShutterStockAPIKey             @"43fcbd072b9b3caa9b79d43642bfe089a0bb5a52"
+
+#define kFlashFotoAPIUsername           @"kim"
+#define kFlashFotoAPIKey                @"7t2PqFYpb2qC9QD2cIrXJ6yNvnwKzI9c"

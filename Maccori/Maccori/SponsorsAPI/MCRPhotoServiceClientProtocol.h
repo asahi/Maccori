@@ -8,7 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
-typedef void (^DZNHTTPRequestCompletion)(NSArray *list, NSError *error);
+typedef void (^MCRHTTPSearchRequestCompletion)(NSArray *list, NSError *error);
+typedef void (^MCRHTTPImageRequestCompletion)(NSDictionary *imageVersion , NSDictionary *image, NSError *error);
 
 @protocol MCRPhotoServiceClientProtocol <NSObject>
 
@@ -17,11 +18,15 @@ typedef void (^DZNHTTPRequestCompletion)(NSArray *list, NSError *error);
 @property (nonatomic, readonly) BOOL loading;
 
 // Searche tags related to a keyword string.
-- (void)searchTagsWithKeyword:(NSString *)keyword completion:(DZNHTTPRequestCompletion)completion;
+- (void)searchTagsWithKeyword:(NSString *)keyword
+                   completion:(MCRHTTPSearchRequestCompletion)completion;
 
 - (void)searchPhotosWithKeyword:(NSString *)keyword
                            page:(NSInteger)page
-                  resultPerPage:(NSInteger)resultPerPage completion:(DZNHTTPRequestCompletion)completion;
+                  resultPerPage:(NSInteger)resultPerPage
+                     completion:(MCRHTTPSearchRequestCompletion)completion;
+
+- (void)postPhoto:(UIImage *)image completion:(MCRHTTPImageRequestCompletion)completion;
 
 - (void)cancelRequest;
 

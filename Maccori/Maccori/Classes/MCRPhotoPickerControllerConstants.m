@@ -26,6 +26,8 @@ NSString *NSStringFromService(MCRPhotoPickerControllerService service)
             return @"Shutterstock";
         case MCRPhotoPickerControllerServiceFlickr:
             return @"Flickr";
+        case MCRPhotoPickerControllerServiceFlashFoto:
+            return @"FlashFoto";
         default:
             return nil;
     }
@@ -39,10 +41,13 @@ MCRPhotoPickerControllerService MCRPhotoServiceFromName(NSString *name)
         return MCRPhotoPickerControllerServiceShutterstock;
     if ([name isEqualToString:NSStringFromService(MCRPhotoPickerControllerServiceFlickr)])
         return MCRPhotoPickerControllerServiceFlickr;
+    if ([name isEqualToString:NSStringFromService(MCRPhotoPickerControllerServiceFlashFoto)])
+        return MCRPhotoPickerControllerServiceFlashFoto;
+
     return -1;
 }
 
-MCRPhotoPickerControllerService DZNFirstPhotoServiceFromPhotoServices(MCRPhotoPickerControllerService services)
+MCRPhotoPickerControllerService MCRFirstPhotoServiceFromPhotoServices(MCRPhotoPickerControllerService services)
 {
     if ((services & MCRPhotoPickerControllerService500px) > 0) {
         return MCRPhotoPickerControllerService500px;

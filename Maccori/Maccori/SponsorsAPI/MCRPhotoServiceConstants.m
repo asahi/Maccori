@@ -9,7 +9,6 @@
 #import "MCRPhotoServiceConstants.h"
 #import "MCRPhotoMetadata.h"
 #import "MCRPhotoTag.h"
-#import "Private.h"
 
 NSString *const MCRPhotoServiceClientConsumerKey = @"MCRPhotoServiceClientConsumerKey";
 NSString *const MCRPhotoServiceClientConsumerSecret = @"MCRPhotoServiceClientConsumerSecret";
@@ -28,6 +27,7 @@ NSURL *baseURLForService(MCRPhotoPickerControllerService service)
         case MCRPhotoPickerControllerService500px:              return [NSURL URLWithString:@"https://api.500px.com/v1"];
         case MCRPhotoPickerControllerServiceShutterstock:       return [NSURL URLWithString:[NSString stringWithFormat:@"http://%@:%@@api.shutterstock.com/", kShutterStockAPIUserName, kShutterStockAPIKey]];
         case MCRPhotoPickerControllerServiceFlickr:             return [NSURL URLWithString:@"http://api.flickr.com/services/rest/"];
+        case MCRPhotoPickerControllerServiceFlashFoto:             return [NSURL URLWithString:@"http://flashfotoapi.com/api/"];
         default:                                                return nil;
     }
 }

@@ -10,9 +10,7 @@
 #import "MCRPhotoPickerController.h"
 #import "UIImagePickerController+Edit.h"
 #import "AFPhotoEditorController.h"
-
-
-#import "Private.h"
+#import "MCRPhotoServiceClient.h"
 
 static NSString *COORDIPHOTO = @"coordiphoto";
 static NSString *FACEPHOTO = @"facephoto";
@@ -57,15 +55,17 @@ static NSString *FACEPHOTO = @"facephoto";
 
 - (IBAction)pressButton:(UIButton *)button
 {
+    if (!_imageView.image) {
+        [self presentPhotoPicker];
+        return;
+    }
     UIActionSheet *actionSheet = [UIActionSheet new];
     actionSheet.title = COORDIPHOTO;
 
     if ([UIImagePickerController isCameraDeviceAvailable:UIImagePickerControllerCameraDeviceFront]) {
         [actionSheet addButtonWithTitle:@"Take Photo"];
     }
-
     [actionSheet addButtonWithTitle:@"Choose Photo"];
-    [actionSheet addButtonWithTitle:@"Search Photo"];
 
     if (_imageView.image) {
         [actionSheet addButtonWithTitle:@"Edit Photo"];
@@ -124,11 +124,17 @@ static NSString *FACEPHOTO = @"facephoto";
 
 - (void)presentPhotoEditor
 {
+    MCRPhotoServiceClient *client = [[MCRPhotoServiceClient alloc] initWithService:MCRPhotoPickerControllerServiceFlashFoto];
     UIImage *image = [_photoPayload objectForKey:UIImagePickerControllerOriginalImage];
-    MCRPhotoPickerController *editor = [[MCRPhotoPickerController alloc] initWithEditableImage:image];
-    editor.editingMode = [[_photoPayload objectForKey:MCRPhotoPickerControllerCropMode] integerValue];
-    editor.delegate = self;
-    [self presentViewController:editor animated:YES completion:NULL];
+
+    [client postPhoto:image completion:^(NSDictionary *imageVersion, NSDictionary *image, NSError *err) {
+        client
+//        NSLog(@"ddddd");
+    }];
+//    MCRPhotoPickerController *editor = [[MCRPhotoPickerController alloc] initWithEditableImage:image];
+//    editor.editingMode = [[_photoPayload objectForKey:MCRPhotoPickerControllerCropMode] integerValue];
+//    editor.delegate = self;
+//    [self presentViewController:editor animated:YES completion:NULL];
 }
 
 - (void)updateImage:(NSDictionary *)userInfo
