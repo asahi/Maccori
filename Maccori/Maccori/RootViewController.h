@@ -17,6 +17,8 @@
 @property (nonatomic, weak) IBOutlet UIImageView *faceView;
 @property (nonatomic, weak) IBOutlet UIImageView *imageView;
 @property (nonatomic, weak) IBOutlet UIButton *button;
+@property (nonatomic, weak) IBOutlet UIButton *plusFaceButton;
+@property (nonatomic, weak) IBOutlet UIButton *checkStatusButton;
 
 - (IBAction)pressButton:(id)sender;
 
