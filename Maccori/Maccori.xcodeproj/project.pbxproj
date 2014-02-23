@@ -31,6 +31,10 @@
 		DA35035D18B7267800999AFC /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DA35035818B7267800999AFC /* Images.xcassets */; };
 		DA35035F18B7267800999AFC /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = DA35035B18B7267800999AFC /* main.m */; };
 		DA35036218B7269700999AFC /* Main_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DA35036018B7269700999AFC /* Main_iPhone.storyboard */; };
+		DA35036818B990A700999AFC /* icon-menu-settings@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DA35036718B990A700999AFC /* icon-menu-settings@2x.png */; };
+		DA35036F18B9A64600999AFC /* MCRResultPhotoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DA35036D18B9A64600999AFC /* MCRResultPhotoViewController.m */; };
+		DA35037018B9A64600999AFC /* MCRResultPhotoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = DA35036E18B9A64600999AFC /* MCRResultPhotoViewController.xib */; };
+		DA35037218B9A79B00999AFC /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA35037118B9A79B00999AFC /* CoreMotion.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -79,6 +83,12 @@
 		DA35035B18B7267800999AFC /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = Maccori/main.m; sourceTree = SOURCE_ROOT; };
 		DA35035C18B7267800999AFC /* Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Private.h; path = Maccori/Private.h; sourceTree = SOURCE_ROOT; };
 		DA35036118B7269700999AFC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Maccori/Base.lproj/Main_iPhone.storyboard; sourceTree = "<group>"; };
+		DA35036718B990A700999AFC /* icon-menu-settings@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-menu-settings@2x.png"; sourceTree = "<group>"; };
+		DA35036C18B9A64600999AFC /* MCRResultPhotoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCRResultPhotoViewController.h; sourceTree = "<group>"; };
+		DA35036D18B9A64600999AFC /* MCRResultPhotoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCRResultPhotoViewController.m; sourceTree = "<group>"; };
+		DA35036E18B9A64600999AFC /* MCRResultPhotoViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MCRResultPhotoViewController.xib; sourceTree = "<group>"; };
+		DA35037118B9A79B00999AFC /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
+		DA35037318B9A7E800999AFC /* libPods-CRMotionView.a */ = {isa = PBXFileReference; lastKnownFileType = file; name = "libPods-CRMotionView.a"; path = "Pods/build/Debug-iphoneos/libPods-CRMotionView.a"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -86,6 +96,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DA35037218B9A79B00999AFC /* CoreMotion.framework in Frameworks */,
 				8197E23618B8584900208F06 /* CoreText.framework in Frameworks */,
 				8197E23418B8584000208F06 /* CoreData.framework in Frameworks */,
 				8197E23218B8583600208F06 /* AdSupport.framework in Frameworks */,
@@ -108,6 +119,10 @@
 				DA35033118B725EF00999AFC /* RootViewController.h */,
 				DA35033218B725EF00999AFC /* RootViewController.m */,
 				DA35036018B7269700999AFC /* Main_iPhone.storyboard */,
+				DA35036C18B9A64600999AFC /* MCRResultPhotoViewController.h */,
+				DA35036D18B9A64600999AFC /* MCRResultPhotoViewController.m */,
+				DA35036E18B9A64600999AFC /* MCRResultPhotoViewController.xib */,
+				DA35036718B990A700999AFC /* icon-menu-settings@2x.png */,
 				DA35033418B7264D00999AFC /* Classes */,
 				DA35034D18B7266200999AFC /* SponsorsAPI */,
 				4F570147180E5D0E00E12444 /* Supporting Files */,
@@ -127,6 +142,8 @@
 		4F57013F180E5D0E00E12444 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				DA35037318B9A7E800999AFC /* libPods-CRMotionView.a */,
+				DA35037118B9A79B00999AFC /* CoreMotion.framework */,
 				8197E23518B8584900208F06 /* CoreText.framework */,
 				8197E23318B8584000208F06 /* CoreData.framework */,
 				8197E23118B8583600208F06 /* AdSupport.framework */,
@@ -251,6 +268,8 @@
 			files = (
 				DA35035D18B7267800999AFC /* Images.xcassets in Resources */,
 				DA35036218B7269700999AFC /* Main_iPhone.storyboard in Resources */,
+				DA35037018B9A64600999AFC /* MCRResultPhotoViewController.xib in Resources */,
+				DA35036818B990A700999AFC /* icon-menu-settings@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -304,6 +323,7 @@
 				DA35034618B7264D00999AFC /* MCRPhotoDisplayViewController.m in Sources */,
 				DA35034A18B7264D00999AFC /* MCRPhotoPickerControllerConstants.m in Sources */,
 				DA35034818B7264D00999AFC /* MCRPhotoMetadata.m in Sources */,
+				DA35036F18B9A64600999AFC /* MCRResultPhotoViewController.m in Sources */,
 				DA35035F18B7267800999AFC /* main.m in Sources */,
 				DA35035718B7266200999AFC /* MCRPhotoServiceFactory.m in Sources */,
 				DA35034C18B7264D00999AFC /* UIImagePickerController+Edit.m in Sources */,

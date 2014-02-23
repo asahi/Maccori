@@ -1,5 +1,5 @@
 GCC_PREPROCESSOR_DEFINITIONS = $(inherited) COCOAPODS=1
-HEADER_SEARCH_PATHS = "${PODS_ROOT}/Headers" "${PODS_ROOT}/Headers/AFNetworking" "${PODS_ROOT}/Headers/AviarySDK" "${PODS_ROOT}/Headers/SDWebImage" "${PODS_ROOT}/Headers/SVProgressHUD"
+HEADER_SEARCH_PATHS = "${PODS_ROOT}/Headers" "${PODS_ROOT}/Headers/AFNetworking" "${PODS_ROOT}/Headers/AviarySDK" "${PODS_ROOT}/Headers/CRMotionView" "${PODS_ROOT}/Headers/SDWebImage" "${PODS_ROOT}/Headers/SVProgressHUD"
 LIBRARY_SEARCH_PATHS = "$(PODS_ROOT)/AviarySDK/3.3.11-master-basic/AviarySDK"
-OTHER_LDFLAGS = -ObjC -ObjC -force_load "$(PODS_ROOT)/AviarySDK/3.3.11-master-basic/AviarySDK/libAviarySDK.a" -lsqlite3 -lz -framework Accelerate -framework CoreData -framework CoreGraphics -framework CoreText -framework ImageIO -framework MessageUI -framework MobileCoreServices -framework OpenGLES -framework QuartzCore -framework Security -framework StoreKit -framework SystemConfiguration -weak_framework AdSupport
+OTHER_LDFLAGS = -ObjC -ObjC -force_load "$(PODS_ROOT)/AviarySDK/3.3.11-master-basic/AviarySDK/libAviarySDK.a" -lsqlite3 -lz -framework Accelerate -framework CoreData -framework CoreGraphics -framework CoreMotion -framework CoreText -framework ImageIO -framework MessageUI -framework MobileCoreServices -framework OpenGLES -framework QuartzCore -framework Security -framework StoreKit -framework SystemConfiguration -framework UIKit -weak_framework AdSupport
 PODS_ROOT = ${SRCROOT}/Pods

@@ -59,6 +59,16 @@
                                     <action selector="checkMugshotStatus:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="clm-yH-NIF"/>
                                 </connections>
                             </button>
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hJW-gH-6t6">
+                                <rect key="frame" x="134" y="151" width="51" height="51"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button" image="icon-menu-settings.png">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="merge:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="J4I-hY-OIT"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
@@ -69,6 +79,7 @@
                         <outlet property="checkStatusButton" destination="KJ4-Ec-9H9" id="JEI-yn-a98"/>
                         <outlet property="faceView" destination="F6h-bg-TO1" id="zng-ZP-k89"/>
                         <outlet property="imageView" destination="O3o-DN-xac" id="6c5-Vt-zaX"/>
+                        <outlet property="mergeButton" destination="hJW-gH-6t6" id="wrj-Jd-epp"/>
                         <outlet property="plusFaceButton" destination="4i3-mK-IGc" id="fPi-zO-5j3"/>
                     </connections>
                 </viewController>
@@ -76,6 +87,9 @@
             </objects>
         </scene>
     </scenes>
+    <resources>
+        <image name="icon-menu-settings.png" width="50" height="44"/>
+    </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>

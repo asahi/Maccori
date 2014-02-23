@@ -11,6 +11,7 @@
 #import "UIImagePickerController+Edit.h"
 #import "AFPhotoEditorController.h"
 #import "MCRPhotoServiceClient.h"
+#import "MCRResultPhotoViewController.h"
 #import <SVProgressHUD/SVProgressHUD.h>
 
 static NSString *COORDIPHOTO = @"coordiphoto";
@@ -20,6 +21,7 @@ static NSString *FACEPHOTO = @"facephoto";
     NSDictionary *_photoPayload;
     NSString *_mugshotTargetImageID;
     NSString *_backgroundImageID;
+    NSString *_resultImageID;
     MCRPhotoServiceClient *_flashFotoClient;
 }
 @end
@@ -129,6 +131,8 @@ static NSString *FACEPHOTO = @"facephoto";
                     NSData *data = [_flashFotoClient processData:response];
                     UIImage *resultImage = [[UIImage alloc]initWithData:data];
                     _faceView.image = resultImage;
+                    _checkStatusButton.hidden = YES;
+                    _mergeButton.hidden = NO;
                 } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                     [SVProgressHUD dismiss];
                 }];
@@ -147,6 +151,68 @@ static NSString *FACEPHOTO = @"facephoto";
         }];
     }
 }
+
+
+- (IBAction)merge:(UIButton *)button {
+    if (_mugshotTargetImageID && _backgroundImageID) {
+        [SVProgressHUD showWithStatus:NSLocalizedString(@"Uploading...", nil) maskType:SVProgressHUDMaskTypeClear];
+
+        [_flashFotoClient mergePhotos:_mugshotTargetImageID background:_backgroundImageID completion:^(NSDictionary *imageVersion, NSDictionary *imageDict, NSError *err) {
+
+            [_flashFotoClient getPhoto:imageDict[@"image_id"] completion:^(UIImage* image, NSError *error){
+                if (image) {
+                    _imageView.image = image;
+                    [_imageView layoutIfNeeded];
+                    UIImageWriteToSavedPhotosAlbum(image, self, @selector(image:didFinishSavingWithError:contextInfo:), nil);
+                    [SVProgressHUD dismiss];
+                }
+            }];
+            [SVProgressHUD dismiss];
+        }];
+    }
+//         getPath:path parameters:parameters success:^(AFHTTPRequestOperation *operation, id response) {
+//            NSData *data = [_flashFotoClient processData:response];
+//            NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableLeaves | NSJSONReadingAllowFragments error:nil];
+//            if ([json[@"mugshot_status"] isEqualToString:@"pending"]) {
+//                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Not yet"
+//                                                                message:@""
+//                                                               delegate:nil
+//                                                      cancelButtonTitle:@"OK"
+//                                                      otherButtonTitles:nil];
+//                [alert show];
+//            }
+//            else if([json[@"mugshot_status"] isEqualToString:@"finished"]) {
+//                [SVProgressHUD showWithStatus:@"Finish mugshot. we can see resulting mask." maskType:SVProgressHUDMaskTypeClear];
+//                NSDictionary *param = @{ @"version" : @"MugshotMasked" ,
+//                                         @"partner_username":kFlashFotoAPIUsername,
+//                                         @"partner_apikey" : kFlashFotoAPIKey};
+//                NSString *path = [NSString stringWithFormat:@"get/%@", _mugshotTargetImageID];
+//                [_flashFotoClient getPath:path parameters:param success:^(AFHTTPRequestOperation *operation, id response) {
+//                    [SVProgressHUD dismiss];
+//                    NSData *data = [_flashFotoClient processData:response];
+//                    UIImage *resultImage = [[UIImage alloc]initWithData:data];
+//                    _faceView.image = resultImage;
+//                    _checkStatusButton.hidden = YES;
+//                    _mergeButton.hidden = NO;
+//                } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+//                    [SVProgressHUD dismiss];
+//                }];
+//
+//
+//            }
+//        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+//            if (error) {
+//                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Wait please"
+//                                                                message:error.localizedDescription
+//                                                               delegate:nil
+//                                                      cancelButtonTitle:@"OK"
+//                                                      otherButtonTitles:nil];
+//                [alert show];
+//            }
+//        }];
+//    }
+}
+
 
 - (void)presentImagePickerForSourceType:(UIImagePickerControllerSourceType)sourceType actionType:(NSString *)actionType
 {

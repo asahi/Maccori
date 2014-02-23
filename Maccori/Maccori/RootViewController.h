@@ -19,7 +19,7 @@
 @property (nonatomic, weak) IBOutlet UIButton *button;
 @property (nonatomic, weak) IBOutlet UIButton *plusFaceButton;
 @property (nonatomic, weak) IBOutlet UIButton *checkStatusButton;
-
+@property (nonatomic, weak) IBOutlet UIButton *mergeButton;
 - (IBAction)pressButton:(id)sender;
 
 @end

@@ -251,28 +251,30 @@
 }
 
 
-- (void)mergePhoto:(NSInteger)imageId completion:(MCRHTTPImageRequestCompletion)completion;
+- (void)mergePhotos:(NSString *)imageId background:(NSString *)backImageId completion:(MCRHTTPImageRequestCompletion)completion
 {
-    //        NSDictionary *parameters = @{ @"partner_username":@"kim", @"partner_apikey" : @"7t2PqFYpb2qC9QD2cIrXJ6yNvnwKzI9c" };
-
     MCRPhotoServiceClient *client= [self initWithBaseURL:baseURLForService(MCRPhotoPickerControllerServiceFlashFoto)];
-    NSString *path = [NSString stringWithFormat:@"merge/?partner_username=%@&partner_apikey=%@", kFlashFotoAPIUsername, kFlashFotoAPIKey];
-
-    NSDictionary *reqJson = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableLeaves | NSJSONReadingAllowFragments error:nil];
-
-    NSDictionary *backgroundImg = [json objectForKey:@"image_id"];
-
+    NSString *path = [NSString stringWithFormat:@"merge?partner_username=%@&partner_apikey=%@", kFlashFotoAPIUsername, kFlashFotoAPIKey];
+    NSArray *arrData = @[
+                       @{@"image_id":backImageId},
+                       @{@"image_id":imageId, @"version":@"MugshotMasked"}
+                       ];
+    NSError *error;
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:arrData
+                                                       options:NSJSONWritingPrettyPrinted
+                                                         error:&error];
+    NSMutableData *body = [NSMutableData data];
+    [body appendData:jsonData];
 
     NSMutableURLRequest *request = [client multipartFormRequestWithMethod:@"POST"
                                                                      path:path
                                                                parameters:nil
                                                 constructingBodyWithBlock: ^(id <AFMultipartFormData>formData) {
-                                                    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-                                                    [formatter setDateFormat:@"yyyyMMdd-HHmmss"];
-                                                    NSString *filename = [NSString stringWithFormat:@"%@.jpg", [formatter stringFromDate:[NSDate date]]];
+//                                                    [formData appendPartWithFormData:jsonData name:@""];
 
-                                                    [formData appendPartWithFileData: imageToUpload name:@"image" fileName:filename mimeType:@"image/jpeg"];
                                                 }];
+
+    [request setHTTPBody:body];
     AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation  alloc] initWithRequest:request];
     [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSData *data = [self processData:responseObject];
@@ -282,7 +284,7 @@
         }
 
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [SVProgressHUD showErrorWithStatus:@"Photo upload failed"];
+        [SVProgressHUD showErrorWithStatus:@"Merge Photo failed"];
     }
      ];
     [operation start];

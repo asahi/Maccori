@@ -29,7 +29,7 @@ typedef void (^MCRHTTPImageDownloadCompletion)(UIImage* image, NSError *error);
 
 - (void)postPhoto:(UIImage *)image completion:(MCRHTTPImageRequestCompletion)completion;
 - (void)getPhoto:(NSString *)imageId completion:(MCRHTTPImageDownloadCompletion)completion;
-
+- (void)mergePhotos:(NSString *)imageId background:(NSString *)backImageId completion:(MCRHTTPImageRequestCompletion)completion;
 - (void)cancelRequest;
 
 @end
