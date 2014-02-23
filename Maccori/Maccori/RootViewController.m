@@ -120,14 +120,15 @@ static NSString *FACEPHOTO = @"facephoto";
             }
             else if([json[@"mugshot_status"] isEqualToString:@"finished"]) {
                 [SVProgressHUD showWithStatus:@"Finish mugshot. we can see resulting mask." maskType:SVProgressHUDMaskTypeClear];
-                NSDictionary *param = @{ @"version" : @"MugshotMask" ,
+                NSDictionary *param = @{ @"version" : @"MugshotMasked" ,
                                               @"partner_username":kFlashFotoAPIUsername,
                                               @"partner_apikey" : kFlashFotoAPIKey};
                 NSString *path = [NSString stringWithFormat:@"get/%@", _mugshotTargetImageID];
                 [_flashFotoClient getPath:path parameters:param success:^(AFHTTPRequestOperation *operation, id response) {
                     [SVProgressHUD dismiss];
                     NSData *data = [_flashFotoClient processData:response];
-                    NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableLeaves | NSJSONReadingAllowFragments error:nil];
+                    UIImage *resultImage = [[UIImage alloc]initWithData:data];
+                    _faceView.image = resultImage;
                 } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                     [SVProgressHUD dismiss];
                 }];
