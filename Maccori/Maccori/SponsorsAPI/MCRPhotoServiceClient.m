@@ -237,9 +237,7 @@
                                                        ];
         AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation  alloc] initWithRequest:request];
         [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
-            NSData *imageFromDownload = UIImageJPEGRepresentation( responseObject, 1.0 );
-            UIImage *resImg;
-            resImg = [resImg initWithData:imageFromDownload];
+            UIImage *resImg = [[UIImage alloc] initWithData:responseObject];
 
             if (completion) {
                 completion(resImg , nil);

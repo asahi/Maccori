@@ -175,24 +175,10 @@ static NSString *FACEPHOTO = @"facephoto";
 
 - (void)presentPhotoEditor
 {
-    //UIImage *image = [_photoPayload objectForKey:UIImagePickerControllerOriginalImage];
-    //AFPhotoEditorController *editorController = [[AFPhotoEditorController alloc] initWithImage:image];
-    //[editorController setDelegate:self];
-    //[self presentViewController:editorController animated:YES completion:NULL];
-
-    if (!_flashFotoClient) {
-        _flashFotoClient = [[MCRPhotoServiceClient alloc] initWithService:MCRPhotoPickerControllerServiceFlashFoto];
-    }
-    [SVProgressHUD showWithStatus:NSLocalizedString(@"Downloading...", nil) maskType:SVProgressHUDMaskTypeClear];
-
-    [_flashFotoClient getPhoto:_mugshotTargetImageID completion:^(UIImage *resImg, NSError *err) {
-        _imageView.image = resImg;
-        [_button setTitle:nil forState:UIControlStateNormal];
-
-        [SVProgressHUD dismiss];
-    }];
-
-
+    UIImage *image = [_photoPayload objectForKey:UIImagePickerControllerOriginalImage];
+    AFPhotoEditorController *editorController = [[AFPhotoEditorController alloc] initWithImage:image];
+    [editorController setDelegate:self];
+    [self presentViewController:editorController animated:YES completion:NULL];
 }
 
 - (void)updateImage:(NSDictionary *)userInfo
