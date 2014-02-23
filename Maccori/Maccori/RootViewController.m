@@ -286,8 +286,9 @@ static NSString *FACEPHOTO = @"facephoto";
             _flashFotoClient = [[MCRPhotoServiceClient alloc] initWithService:MCRPhotoPickerControllerServiceFlashFoto];
         }
         [SVProgressHUD showWithStatus:@"Removing the background..." maskType:SVProgressHUDMaskTypeClear];
-        NSDictionary *parameters = @{ @"partner_username":kFlashFotoAPIUsername, @"partner_apikey" : kFlashFotoAPIKey, @"image_id" : _mugshotTargetImageID};
-        [_flashFotoClient getPath:@"mugshot" parameters:parameters success:^(AFHTTPRequestOperation *operation, id response) {
+        NSDictionary *parameters = @{ @"partner_username":kFlashFotoAPIUsername, @"partner_apikey" : kFlashFotoAPIKey};
+        NSString *path = [NSString stringWithFormat:@"mugshot/%@", _mugshotTargetImageID];
+        [_flashFotoClient getPath:path parameters:parameters success:^(AFHTTPRequestOperation *operation, id response) {
 
             NSData *data = [_flashFotoClient processData:response];
             NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableLeaves | NSJSONReadingAllowFragments error:nil];
