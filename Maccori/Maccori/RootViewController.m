@@ -99,6 +99,53 @@ static NSString *FACEPHOTO = @"facephoto";
 
 }
 
+- (IBAction)checkMugshotStatus:(UIButton *)button {
+    if (_mugshotTargetImageID) {
+        if (!_flashFotoClient) {
+            _flashFotoClient = [[MCRPhotoServiceClient alloc] initWithService:MCRPhotoPickerControllerServiceFlashFoto];
+        }
+        NSDictionary *parameters = @{ @"partner_username":kFlashFotoAPIUsername, @"partner_apikey" : kFlashFotoAPIKey};
+        NSString *path = [NSString stringWithFormat:@"mugshot_status/%@", _mugshotTargetImageID];
+        [_flashFotoClient getPath:path parameters:parameters success:^(AFHTTPRequestOperation *operation, id response) {
+            NSData *data = [_flashFotoClient processData:response];
+            NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableLeaves | NSJSONReadingAllowFragments error:nil];
+            if ([json[@"mugshot_status"] isEqualToString:@"pending"]) {
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Not yet"
+                                                                message:@""
+                                                               delegate:nil
+                                                      cancelButtonTitle:@"OK"
+                                                      otherButtonTitles:nil];
+                [alert show];
+            }
+            else if([json[@"mugshot_status"] isEqualToString:@"finished"]) {
+                [SVProgressHUD showWithStatus:@"Finish mugshot. we can see resulting mask." maskType:SVProgressHUDMaskTypeClear];
+                NSDictionary *param = @{ @"version" : @"MugshotMask" ,
+                                              @"partner_username":kFlashFotoAPIUsername,
+                                              @"partner_apikey" : kFlashFotoAPIKey};
+                NSString *path = [NSString stringWithFormat:@"get/%@", _mugshotTargetImageID];
+                [_flashFotoClient getPath:path parameters:param success:^(AFHTTPRequestOperation *operation, id response) {
+                    [SVProgressHUD dismiss];
+                    NSData *data = [_flashFotoClient processData:response];
+                    NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableLeaves | NSJSONReadingAllowFragments error:nil];
+                } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                    [SVProgressHUD dismiss];
+                }];
+
+
+            }
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            if (error) {
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Wait please"
+                                                                message:error.localizedDescription
+                                                               delegate:nil
+                                                      cancelButtonTitle:@"OK"
+                                                      otherButtonTitles:nil];
+                [alert show];
+            }
+        }];
+    }
+}
+
 - (void)presentImagePickerForSourceType:(UIImagePickerControllerSourceType)sourceType actionType:(NSString *)actionType
 {
     UIImagePickerController *picker = [[UIImagePickerController alloc] init];
@@ -289,11 +336,11 @@ static NSString *FACEPHOTO = @"facephoto";
         NSDictionary *parameters = @{ @"partner_username":kFlashFotoAPIUsername, @"partner_apikey" : kFlashFotoAPIKey};
         NSString *path = [NSString stringWithFormat:@"mugshot/%@", _mugshotTargetImageID];
         [_flashFotoClient getPath:path parameters:parameters success:^(AFHTTPRequestOperation *operation, id response) {
-
-            NSData *data = [_flashFotoClient processData:response];
-            NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableLeaves | NSJSONReadingAllowFragments error:nil];
-
+            [_plusFaceButton setHidden:YES];
+            [_checkStatusButton setHidden:NO];
+            [SVProgressHUD dismiss];
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            [SVProgressHUD dismiss];
             if (error) {
                 UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error"
                                                                 message:error.localizedDescription

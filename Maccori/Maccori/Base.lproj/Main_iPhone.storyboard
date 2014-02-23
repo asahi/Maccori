@@ -37,23 +37,39 @@
                                     <action selector="pressButton:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="WkD-MT-4Pf"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4i3-mK-IGc">
-                                <rect key="frame" x="117" y="20" width="87" height="30"/>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="contactAdd" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4i3-mK-IGc">
+                                <rect key="frame" x="149" y="79" width="22" height="22"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Put My Face">
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <state key="normal">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="pressFaceButton:" destination="vXZ-lx-hvc" eventType="touchDown" id="1hG-eG-jdo"/>
+                                    <action selector="pressFaceButton:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="Ryg-ur-yie"/>
+                                </connections>
+                            </button>
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="infoDark" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KJ4-Ec-9H9">
+                                <rect key="frame" x="149" y="28" width="22" height="22"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <state key="normal">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="checkMugshotStatus:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="clm-yH-NIF"/>
                                 </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
+                    <toolbarItems/>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="button" destination="stU-xB-pQj" id="zqq-xY-xLo"/>
+                        <outlet property="checkStatusButton" destination="KJ4-Ec-9H9" id="JEI-yn-a98"/>
                         <outlet property="faceView" destination="F6h-bg-TO1" id="zng-ZP-k89"/>
                         <outlet property="imageView" destination="O3o-DN-xac" id="6c5-Vt-zaX"/>
+                        <outlet property="plusFaceButton" destination="4i3-mK-IGc" id="fPi-zO-5j3"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
