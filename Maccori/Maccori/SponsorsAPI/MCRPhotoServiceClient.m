@@ -223,6 +223,35 @@
     }
 }
 
+- (void)getPhoto:(NSString *)imageId completion:(MCRHTTPImageDownloadCompletion)completion;
+{
+    //NSData* imageToUpload = UIImageJPEGRepresentation( image, 1.0 );
+        //        NSDictionary *parameters = @{ @"partner_username":@"kim", @"partner_apikey" : @"7t2PqFYpb2qC9QD2cIrXJ6yNvnwKzI9c" };
+
+        MCRPhotoServiceClient *client= [self initWithBaseURL:baseURLForService(MCRPhotoPickerControllerServiceFlashFoto)];
+        NSString *path = [NSString stringWithFormat:@"get/%@/?partner_username=%@&partner_apikey=%@", imageId, kFlashFotoAPIUsername, kFlashFotoAPIKey];
+        NSMutableURLRequest *request = [client multipartFormRequestWithMethod:@"POST"
+                                                                         path:path
+                                                                   parameters:nil
+                                                    constructingBodyWithBlock:nil
+                                                       ];
+        AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation  alloc] initWithRequest:request];
+        [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+            NSData *imageFromDownload = UIImageJPEGRepresentation( responseObject, 1.0 );
+            UIImage *resImg;
+            resImg = [resImg initWithData:imageFromDownload];
+
+            if (completion) {
+                completion(resImg , nil);
+            }
+
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            [SVProgressHUD showErrorWithStatus:@"Photo download failed"];
+        }
+         ];
+        [operation start];
+}
+
 - (void)cancelRequest
 {
     if (_loadingPath) {

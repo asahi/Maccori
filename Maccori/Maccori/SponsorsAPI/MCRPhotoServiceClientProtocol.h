@@ -10,6 +10,7 @@
 
 typedef void (^MCRHTTPSearchRequestCompletion)(NSArray *list, NSError *error);
 typedef void (^MCRHTTPImageRequestCompletion)(NSDictionary *imageVersion , NSDictionary *image, NSError *error);
+typedef void (^MCRHTTPImageDownloadCompletion)(UIImage* image, NSError *error);
 
 @protocol MCRPhotoServiceClientProtocol <NSObject>
 
@@ -27,6 +28,7 @@ typedef void (^MCRHTTPImageRequestCompletion)(NSDictionary *imageVersion , NSDic
                      completion:(MCRHTTPSearchRequestCompletion)completion;
 
 - (void)postPhoto:(UIImage *)image completion:(MCRHTTPImageRequestCompletion)completion;
+- (void)getPhoto:(NSString *)imageId completion:(MCRHTTPImageDownloadCompletion)completion;
 
 - (void)cancelRequest;
 
