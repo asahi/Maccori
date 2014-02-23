@@ -19,5 +19,6 @@ UIKIT_EXTERN NSString *const MCRPhotoServiceClientConsumerSecret;
 @interface MCRPhotoServiceClient : AFHTTPClient <MCRPhotoServiceClientProtocol>
 
 - (instancetype)initWithService:(MCRPhotoPickerControllerService)service;
-
+- (void)getObject:(NSString *)objectName path:(NSString *)path params:(NSDictionary *)params completion:(MCRHTTPSearchRequestCompletion)completion;
+- (NSData *)processData:(NSData *)data;
 @end

@@ -12,7 +12,7 @@
 
 @interface RootViewController : UIViewController <UIActionSheetDelegate, UINavigationControllerDelegate,
                                                 UIImagePickerControllerDelegate, MCRPhotoPickerControllerDelegate,
-                                                UIPopoverControllerDelegate>
+                                                UIPopoverControllerDelegate, UIAlertViewDelegate>
 
 @property (nonatomic, weak) IBOutlet UIImageView *faceView;
 @property (nonatomic, weak) IBOutlet UIImageView *imageView;

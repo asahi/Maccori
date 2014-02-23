@@ -13,6 +13,7 @@
 #import "MCRPhotoMetadata.h"
 #import "MCRPhotoTag.h"
 #import "AFHTTPRequestOperation.h"
+#import <SVProgressHUD/SVProgressHUD.h>
 
 @interface MCRPhotoServiceClient ()
 @property (nonatomic, copy) MCRHTTPSearchRequestCompletion completion;
@@ -192,19 +193,22 @@
     NSData* imageToUpload = UIImageJPEGRepresentation( image, 1.0 );
     if (imageToUpload)
     {
-        NSDictionary *parameters = @{ @"partner_username":@"kim", @"partner_apikey" : @"7t2PqFYpb2qC9QD2cIrXJ6yNvnwKzI9c" };
+//        NSDictionary *parameters = @{ @"partner_username":@"kim", @"partner_apikey" : @"7t2PqFYpb2qC9QD2cIrXJ6yNvnwKzI9c" };
 
         MCRPhotoServiceClient *client= [self initWithBaseURL:baseURLForService(MCRPhotoPickerControllerServiceFlashFoto)];
         NSString *path = [NSString stringWithFormat:@"add/?partner_username=%@&partner_apikey=%@", kFlashFotoAPIUsername, kFlashFotoAPIKey];
         NSMutableURLRequest *request = [client multipartFormRequestWithMethod:@"POST"
                                                                          path:path
-                                                                   parameters:parameters
+                                                                   parameters:nil
                                                     constructingBodyWithBlock: ^(id <AFMultipartFormData>formData) {
-            [formData appendPartWithFileData: imageToUpload name:@"image" fileName:@"test.jpeg" mimeType:@"image/jpeg"];
+                                                        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+                                                        [formatter setDateFormat:@"yyyyMMdd-HHmmss"];
+                                                        NSString *filename = [NSString stringWithFormat:@"%@.jpg", [formatter stringFromDate:[NSDate date]]];
+
+                                                        [formData appendPartWithFileData: imageToUpload name:@"image" fileName:filename mimeType:@"image/jpeg"];
         }];
         AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation  alloc] initWithRequest:request];
-        [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation
-                                                   , id responseObject) {
+        [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
             NSData *data = [self processData:responseObject];
             NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableLeaves | NSJSONReadingAllowFragments error:nil];
             if (completion) {
@@ -212,42 +216,11 @@
             }
 
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            // code
+            [SVProgressHUD showErrorWithStatus:@"Photo upload failed"];
         }
          ];
         [operation start];
     }
-
-//
-//    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-//    NSDictionary *parameters = @{@"foo": @"bar"};
-//    NSURL *filePath = [NSURL fileURLWithPath:@"file://path/to/image.png"];
-//    [manager POST:@"http://example.com/resources.json" parameters:parameters constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
-//        [formData appendPartWithFileData:imageData name:@"image" error:nil];
-//    } success:^(AFHTTPRequestOperation *operation, id responseObject) {
-//        NSLog(@"Success: %@", responseObject);
-//    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-//        NSLog(@"Error: %@", error);
-//    }];
-//
-//    NSDictionary *params = @{
-//                             @"partner_username":@"kim",
-//                             @"partner_apikey" : @"7t2PqFYpb2qC9QD2cIrXJ6yNvnwKzI9c",
-//                             @"Content-type":@"image/jpeg",
-//                             @"body": imageToUpload
-//                             };
-
-//    [self postPath:@"add" parameters:params success:^(AFHTTPRequestOperation *operation, id response) {
-//
-//        NSData *data = [self processData:response];
-//        NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableLeaves | NSJSONReadingAllowFragments error:nil];
-//
-//        if (completion) {
-////            completion(nil, nil);
-//        }
-//    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-////        if (completion) completion(nil, error);
-//    }];
 }
 
 - (void)cancelRequest

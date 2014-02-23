@@ -242,7 +242,7 @@ UICollectionViewDelegateFlowLayout, UITableViewDataSource, UITableViewDelegate>
 
 - (NSInteger)resultPerPage
 {
-    return self.columnCount * self.rowCount;
+    return 100;//self.columnCount * self.rowCount;
 }
 
 - (BOOL)shouldShowFooter
@@ -607,16 +607,16 @@ UICollectionViewDelegateFlowLayout, UITableViewDataSource, UITableViewDelegate>
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kTagCellID];
+    if(_photoTags.count > 0) {
+        MCRPhotoTag *tag = [_photoTags objectAtIndex:indexPath.row];
 
-    MCRPhotoTag *tag = [_photoTags objectAtIndex:indexPath.row];
-
-    if (_photoTags.count == 1) {
-        cell.textLabel.text = [NSString stringWithFormat:@"Search for \"%@\"", tag.text];
+        if (_photoTags.count == 1) {
+            cell.textLabel.text = [NSString stringWithFormat:@"Search for \"%@\"", tag.text];
+        }
+        else {
+            cell.textLabel.text = tag.text;
+        }
     }
-    else {
-        cell.textLabel.text = tag.text;
-    }
-
     return cell;
 }
 

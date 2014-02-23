@@ -11,12 +11,15 @@
 #import "UIImagePickerController+Edit.h"
 #import "AFPhotoEditorController.h"
 #import "MCRPhotoServiceClient.h"
+#import <SVProgressHUD/SVProgressHUD.h>
 
 static NSString *COORDIPHOTO = @"coordiphoto";
 static NSString *FACEPHOTO = @"facephoto";
 
 @interface RootViewController ()<AFPhotoEditorControllerDelegate> {
     NSDictionary *_photoPayload;
+    NSString *_mugshotTargetImageID;
+    MCRPhotoServiceClient *_flashFotoClient;
 }
 @end
 
@@ -117,24 +120,22 @@ static NSString *FACEPHOTO = @"facephoto";
     MCRPhotoPickerController *picker = [[MCRPhotoPickerController alloc] init];
     picker.supportedServices = MCRPhotoPickerControllerService500px | MCRPhotoPickerControllerServiceShutterstock | MCRPhotoPickerControllerServiceFlickr;
     picker.allowsEditing = YES;
-    picker.editingMode = MCRPhotoEditViewControllerCropModeNone;
+    picker.editingMode = MCRPhotoEditViewControllerCropModeSquare;
     picker.delegate = self;
     [self presentViewController:picker animated:YES completion:NULL];
 }
 
 - (void)presentPhotoEditor
 {
-    MCRPhotoServiceClient *client = [[MCRPhotoServiceClient alloc] initWithService:MCRPhotoPickerControllerServiceFlashFoto];
     UIImage *image = [_photoPayload objectForKey:UIImagePickerControllerOriginalImage];
+    AFPhotoEditorController *editorController = [[AFPhotoEditorController alloc] initWithImage:image];
+    [editorController setDelegate:self];
+    [self presentViewController:editorController animated:YES completion:NULL];
 
-    [client postPhoto:image completion:^(NSDictionary *imageVersion, NSDictionary *image, NSError *err) {
-        client
-//        NSLog(@"ddddd");
-    }];
-//    MCRPhotoPickerController *editor = [[MCRPhotoPickerController alloc] initWithEditableImage:image];
-//    editor.editingMode = [[_photoPayload objectForKey:MCRPhotoPickerControllerCropMode] integerValue];
-//    editor.delegate = self;
-//    [self presentViewController:editor animated:YES completion:NULL];
+    //    MCRPhotoPickerController *editor = [[MCRPhotoPickerController alloc] initWithEditableImage:image];
+    //    editor.editingMode = [[_photoPayload objectForKey:MCRPhotoPickerControllerCropMode] integerValue];
+    //    editor.delegate = self;
+    //    [self presentViewController:editor animated:YES completion:NULL];
 }
 
 - (void)updateImage:(NSDictionary *)userInfo
@@ -169,10 +170,18 @@ static NSString *FACEPHOTO = @"facephoto";
     NSLog(@"PhotoAttributes : %@",[userInfo objectForKey:MCRPhotoPickerControllerPhotoMetadata]);
 
     UIImage *image = [userInfo objectForKey:UIImagePickerControllerOriginalImage];
+    if (!_flashFotoClient) {
+        _flashFotoClient = [[MCRPhotoServiceClient alloc] initWithService:MCRPhotoPickerControllerServiceFlashFoto];
+    }
+    [SVProgressHUD showWithStatus:NSLocalizedString(@"Uploading...", nil) maskType:SVProgressHUDMaskTypeClear];
 
-    AFPhotoEditorController *editorController = [[AFPhotoEditorController alloc] initWithImage:image];
-    [editorController setDelegate:self];
-    [self presentViewController:editorController animated:YES completion:NULL];
+    [_flashFotoClient postPhoto:image completion:^(NSDictionary *imageVersion, NSDictionary *imageDict, NSError *err) {
+        _faceView.image = image;
+        _mugshotTargetImageID = imageDict[@"image_id"];
+        [SVProgressHUD dismiss];
+
+        [self displayUploadSuccesMessage];
+    }];
 }
 
 - (void)saveImage:(NSDictionary *)userInfo
@@ -195,6 +204,16 @@ static NSString *FACEPHOTO = @"facephoto";
     }
 }
 
+
+- (void)displayUploadSuccesMessage
+{
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Photo has already"
+                                                        message:@"Removes the background?"
+                                                       delegate:self
+                                              cancelButtonTitle:@"OK"
+                                              otherButtonTitles:nil, nil];
+    [alertView show];
+}
 
 #pragma mark - UIActionSheetDelegate methods
 
@@ -258,17 +277,47 @@ static NSString *FACEPHOTO = @"facephoto";
     [picker dismissViewControllerAnimated:YES completion:NULL];
 }
 
+#pragma mark UIAlertViewDelegate
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    if (buttonIndex == 0 && _mugshotTargetImageID) {
+        NSLog(@"%@",_mugshotTargetImageID);
+        if (!_flashFotoClient) {
+            _flashFotoClient = [[MCRPhotoServiceClient alloc] initWithService:MCRPhotoPickerControllerServiceFlashFoto];
+        }
+        [SVProgressHUD showWithStatus:@"Removing the background..." maskType:SVProgressHUDMaskTypeClear];
+        NSDictionary *parameters = @{ @"partner_username":kFlashFotoAPIUsername, @"partner_apikey" : kFlashFotoAPIKey, @"image_id" : _mugshotTargetImageID};
+        [_flashFotoClient getPath:@"mugshot" parameters:parameters success:^(AFHTTPRequestOperation *operation, id response) {
+
+            NSData *data = [_flashFotoClient processData:response];
+            NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableLeaves | NSJSONReadingAllowFragments error:nil];
+
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            if (error) {
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error"
+                                                                message:error.localizedDescription
+                                                               delegate:nil
+                                                      cancelButtonTitle:@"OK"
+                                                      otherButtonTitles:nil];
+                [alert show];
+            }
+        }];
+    }
+}
+
+
 #pragma mark - Avail methods
 
 - (void)photoEditor:(AFPhotoEditorController *)editor finishedWithImage:(UIImage *)image
 {
-    _faceView.image = image;
+    _imageView.image = image;
     [editor dismissViewControllerAnimated:YES completion:NULL];
 }
 
 - (void)photoEditorCanceled:(AFPhotoEditorController *)editor
 {
-    // Handle cancellation here
+    [editor dismissViewControllerAnimated:YES completion:NULL];
 }
+
 
 @end
