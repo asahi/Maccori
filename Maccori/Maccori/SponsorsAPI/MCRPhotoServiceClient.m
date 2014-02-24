@@ -257,7 +257,7 @@
     NSString *path = [NSString stringWithFormat:@"merge?partner_username=%@&partner_apikey=%@", kFlashFotoAPIUsername, kFlashFotoAPIKey];
     NSArray *arrData = @[
                        @{@"image_id":backImageId},
-                       @{@"image_id":imageId, @"version":@"MugshotMasked"}
+                       @{@"image_id":imageId, @"version":@"MugshotMasked", @"x":@100, @"scale": @20}
                        ];
     NSError *error;
     NSData *jsonData = [NSJSONSerialization dataWithJSONObject:arrData
@@ -279,6 +279,7 @@
     [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSData *data = [self processData:responseObject];
         NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableLeaves | NSJSONReadingAllowFragments error:nil];
+        
         if (completion) {
             completion([json objectForKey:@"Image"] , [json objectForKey:@"ImageVersion"] , nil);
         }

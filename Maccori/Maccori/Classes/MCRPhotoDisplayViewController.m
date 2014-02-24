@@ -164,7 +164,7 @@ UICollectionViewDelegateFlowLayout, UITableViewDataSource, UITableViewDelegate>
         [_loadButton setTitleColor:[UIColor clearColor] forState:UIControlStateNormal];
         [_loadButton addTarget:self action:@selector(downloadData) forControlEvents:UIControlEventTouchUpInside];
         [_loadButton.titleLabel setFont:[UIFont systemFontOfSize:17.0]];
-        [_loadButton setBackgroundColor:[UIColor redColor]];
+        [_loadButton setBackgroundColor:[UIColor grayColor]];
 
         [_loadButton addSubview:self.activityIndicator];
     }

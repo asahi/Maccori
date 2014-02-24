@@ -75,6 +75,7 @@ static NSString *FACEPHOTO = @"facephoto";
 
     if (_imageView.image) {
         [actionSheet addButtonWithTitle:@"Edit Photo"];
+        [actionSheet addButtonWithTitle:@"Search Photo"];
         [actionSheet addButtonWithTitle:@"Delete Photo"];
     }
 
@@ -161,10 +162,11 @@ static NSString *FACEPHOTO = @"facephoto";
 
             [_flashFotoClient getPhoto:imageDict[@"image_id"] completion:^(UIImage* image, NSError *error){
                 if (image) {
-                    _imageView.image = image;
-                    [_imageView layoutIfNeeded];
                     UIImageWriteToSavedPhotosAlbum(image, self, @selector(image:didFinishSavingWithError:contextInfo:), nil);
                     [SVProgressHUD dismiss];
+                    _imageView.image = image;
+                    [_imageView layoutIfNeeded];
+                    _plusFaceButton.hidden = NO;
                 }
             }];
             [SVProgressHUD dismiss];
@@ -242,8 +244,7 @@ static NSString *FACEPHOTO = @"facephoto";
 
 - (void)presentPhotoEditor
 {
-    UIImage *image = [_photoPayload objectForKey:UIImagePickerControllerOriginalImage];
-    AFPhotoEditorController *editorController = [[AFPhotoEditorController alloc] initWithImage:image];
+    AFPhotoEditorController *editorController = [[AFPhotoEditorController alloc] initWithImage:_imageView.image];
     [editorController setDelegate:self];
     [self presentViewController:editorController animated:YES completion:NULL];
 }
@@ -432,6 +433,7 @@ static NSString *FACEPHOTO = @"facephoto";
 - (void)photoEditor:(AFPhotoEditorController *)editor finishedWithImage:(UIImage *)image
 {
     _imageView.image = image;
+                        UIImageWriteToSavedPhotosAlbum(image, self, @selector(image:didFinishSavingWithError:contextInfo:), nil);
     [editor dismissViewControllerAnimated:YES completion:NULL];
 }
 
